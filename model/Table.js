@@ -8,9 +8,12 @@ const tableSchema = new mongoose.Schema({
     },
     title: String,
     description: String,
-    date: Date,
+    date: {
+        type: Date,
+        default: Date.now()
+    }
 });
 
-const table = mongoose.model("Table1", tableSchema);
+const table = mongoose.model("Table", tableSchema);
 
 module.exports = table;
