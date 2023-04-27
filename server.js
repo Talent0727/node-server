@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const { urlencoded } = require("express");
 const mongoose = require('mongoose');
-const tb_model = require('./model/Table');
+const table = require('./model/Table');
 const res = require("express/lib/response");
 
 
@@ -27,33 +27,68 @@ app.use(urlencoded({extended: true}));
 /**
  * @func Create
  */
-app.post('/create', (req, res) => {
-    const info = new tb_model(req.body);
-    info.save((err) => {
-        if(err) return res.status(500).send(err);
-        res.status(200).send('created');
+app.post('/create', async (req, res) => {
+
+    const new_data = new table({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        title: req.body.titl,
+        description: req.body.description
     });
+
+    try {
+        const result = await new_data.save();
+        if (result) {
+            res.send(JSON.stringify({
+                "message": "success"
+            }));
+        }
+    } catch(err) {
+        res.status = '400';
+        res.send(JSON.stringify({
+            "error": err
+        }));
+    }
 });
 
 /**
  * @func GetAll
  */
-app.post('/getall', (req, res) => {
-    tb_model.find({}, (err, data => {
-        if(err) return res.status(500).send(err);
-        res.json(data);
-    }));
+app.post('/getall', async (req, res) => {
+    const result  = await table.find(); 
+    try {
+        res.status(200).json(result);
+    }catch(err){
+        res.status = '400';
+        res.send(JSON.stringify({
+            "error": err
+        }));
+    }
 });
 
 /**
  * @func DeleteByID
  */
-app.post('/delete/:id', (req, res) => {
+app.post('/delete/:id', async (req, res) => {
     // req.query("id")  req.param("id")
-    tb_model.deleteOneById(req.param['id'], (err) => {
-        if(err) return res.status(500).send(err);
-        res.send('deleted');
-    });
+    const gain = await table.findById(req.params.id);
+    try {
+        const result = await table.deleteOne({_id: req.params.id});
+        try {
+            res.status(200).send(JSON.stringify({
+                'message' : "success"
+            }))
+        } catch(err) {
+            return res.status(400).send(JSON.stringify({
+                "message" : err
+            }));
+        }
+    } catch (err) {
+        return res.status(400).send(JSON.stringify({
+            "message": "no-exist"
+        }))
+    }
 });
 
 const hostname = "127.0.0.1";
