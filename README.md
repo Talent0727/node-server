@@ -1,3 +1,15 @@
+<p align="center">
+  <h1 align="center">Sincity API(Nest)</h1>
+</p>
+
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
+  
+  <p align="center">
+    <h3 align="center"> Ecommerce and CRM Webinar project! </h3>
+  </p>
+
+
 # node-app
 
   
