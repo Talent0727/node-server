@@ -10,7 +10,7 @@ npm install
 
 Create New User:
 ```
-fetch(Server_url/create, {
+fetch(Server_url:7001/create, {
     method: "post",
     body : {
         first_name: user_define,
@@ -27,7 +27,7 @@ fetch(Server_url/create, {
 Get All Users:
 
 ```
-fetch(Server_url/getall, {
+fetch(Server_url:7001/getall, {
     method: "post"
 })
 .then(res => res.json())
@@ -37,7 +37,7 @@ fetch(Server_url/getall, {
 Delete ById:
 
 ```
-fetch(Server_url/delete/:id, {
+fetch(Server_url;7001/delete/:id, {
     method: "post",
 })
 .then(res => res.json())
