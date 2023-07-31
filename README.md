@@ -8,6 +8,12 @@ npm install
 
 ## Quick start
 
+Running Server:
+
+```
+nodemon server.js
+```
+
 Create New User:
 ```
 fetch(Server_url:7001/create, {
